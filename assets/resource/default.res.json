@@ -1,0 +1,107 @@
+{
+	"groups": [
+		{
+			"keys": "yindao_json,yindao_0_json,bg_png,denglu_png,bg_activity_png",
+			"name": "preload"
+		},
+		{
+			"keys": "common,common@atlas0_png",
+			"name": "fgui@common"
+		},
+		{
+			"keys": "index,index@atlas0_png,index@atlas0_1_png",
+			"name": "fgui@index"
+		},
+		{
+			"keys": "loading,loading@atlas0_png",
+			"name": "fgui@loading"
+		},
+		{
+			"keys": "special@atlas0_png,special",
+			"name": "fgui@special"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/fgui/common.zip",
+			"type": "bin",
+			"name": "common"
+		},
+		{
+			"url": "assets/fgui/common@atlas0.png",
+			"type": "image",
+			"name": "common@atlas0_png"
+		},
+		{
+			"url": "assets/fgui/index.zip",
+			"type": "bin",
+			"name": "index"
+		},
+		{
+			"url": "assets/fgui/index@atlas0.png",
+			"type": "image",
+			"name": "index@atlas0_png"
+		},
+		{
+			"url": "assets/fgui/loading.zip",
+			"type": "bin",
+			"name": "loading"
+		},
+		{
+			"url": "assets/fgui/loading@atlas0.png",
+			"type": "image",
+			"name": "loading@atlas0_png"
+		},
+		{
+			"url": "assets/ani/yindao.json",
+			"type": "json",
+			"name": "yindao_json"
+		},
+		{
+			"url": "assets/ani/yindao/0.json",
+			"type": "sheet",
+			"name": "yindao_0_json",
+			"subkeys": "i_1,i_2,i_3"
+		},
+		{
+			"url": "assets/img/bg.png",
+			"type": "image",
+			"name": "bg_png"
+		},
+		{
+			"url": "assets/img/denglu.png",
+			"type": "image",
+			"name": "denglu_png"
+		},
+		{
+			"url": "assets/fgui/index@atlas0_1.png",
+			"type": "image",
+			"name": "index@atlas0_1_png"
+		},
+		{
+			"url": "assets/fgui/special.zip",
+			"type": "bin",
+			"name": "special"
+		},
+		{
+			"url": "assets/fgui/special@atlas0.png",
+			"type": "image",
+			"name": "special@atlas0_png"
+		},
+		{
+			"url": "img/share_default.jpg",
+			"type": "image",
+			"name": "share_default"
+		},
+		{
+			"url": "assets/img/bg_activity.png",
+			"type": "image",
+			"name": "bg_activity_png"
+		},
+		{
+			"url": "assets/fgui/index@atlas0_2.png",
+			"type": "image",
+			"name": "index@atlas0_2_png"
+		}
+	]
+}
