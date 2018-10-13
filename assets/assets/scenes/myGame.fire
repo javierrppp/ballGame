@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3376361417787998,
-      "y": 0.3376361417787998,
+      "x": 0.22973967099940615,
+      "y": 0.22973967099940615,
       "z": 1
     },
     "_quat": {
@@ -106,7 +106,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 1000,
-      "height": 1500
+      "height": 1777
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -116,7 +116,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 500,
-      "y": 750,
+      "y": 888.5,
       "z": 0
     },
     "_scale": {
@@ -277,7 +277,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 5,
+      "x": 0,
       "y": -90,
       "z": 0
     },
@@ -370,8 +370,8 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 1,
-      "y": -369
+      "x": 3,
+      "y": -439
     },
     "_size": {
       "__type__": "cc.Size",
@@ -396,13 +396,13 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 246,
-      "y": 18
+      "x": 248,
+      "y": 119
     },
     "_size": {
       "__type__": "cc.Size",
       "width": 25,
-      "height": 658
+      "height": 986
     },
     "_id": "87nyW2VHNDXYUT48gntJ6o"
   },
@@ -422,13 +422,13 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": -247,
-      "y": 19
+      "x": -245,
+      "y": 120
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 23,
-      "height": 652
+      "width": 19,
+      "height": 990
     },
     "_id": "7dqWEETvZA1b0tbF53yNky"
   },
@@ -448,13 +448,13 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": -198,
-      "y": 341
+      "x": -195,
+      "y": 403
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 10,
-      "height": 43
+      "width": 12,
+      "height": 28
     },
     "_id": "a4NwiW/JZCTrElMClVrsK3"
   },
@@ -474,13 +474,13 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 193,
-      "y": 340
+      "x": 195,
+      "y": 404
     },
     "_size": {
       "__type__": "cc.Size",
       "width": 12,
-      "height": 39
+      "height": 28
     },
     "_id": "bekKM9xgdJmbE1baHZDMvo"
   },
@@ -520,8 +520,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -120,
+      "x": -18,
+      "y": -47,
       "z": 0
     },
     "_scale": {
@@ -634,13 +634,13 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -69,
+      "y": -72,
       "z": 0
     },
     "_scale": {
       "__type__": "cc.Vec3",
       "x": 1,
-      "y": 1,
+      "y": 1.19,
       "z": 1
     },
     "_rotationX": 0,
@@ -1115,17 +1115,17 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 188,
-      "height": 221
+      "height": 269
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.56
+      "y": 0.65
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 500,
+      "x": -0.7,
+      "y": 600.9,
       "z": 0
     },
     "_scale": {
@@ -1278,7 +1278,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 189,
-      "y": 1433,
+      "y": 1550,
       "z": 0
     },
     "_scale": {
@@ -1364,7 +1364,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 820,
-      "y": 1433,
+      "y": 1550,
       "z": 0
     },
     "_scale": {
@@ -1424,7 +1424,7 @@
     "_designResolution": {
       "__type__": "cc.Size",
       "width": 1000,
-      "height": 1500
+      "height": 1777
     },
     "_fitWidth": true,
     "_fitHeight": false,
@@ -1465,18 +1465,18 @@
     "hint": {
       "__id__": 25
     },
-    "toolProb": 0.5,
+    "toolProb": 0.7,
     "epsilon": 0.01,
+    "v0": 700,
     "level": 1,
     "balls": [],
     "ball_num": 0,
     "objects": [],
-    "object_num": 0,
     "can_update": false,
     "score": 0,
     "game_tools": [],
     "hint_enable": false,
-    "v0": 1200,
+    "storage": [],
     "_id": "17c6p/b0lC555ELn5DXSuF"
   }
 ]

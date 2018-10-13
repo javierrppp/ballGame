@@ -1,3 +1,4 @@
+require("shake.js");
 cc.Class({
     extends: cc.Component,
 
@@ -58,11 +59,11 @@ cc.Class({
         balls: [],
         ball_num: 0,
         objects: [],
-        object_num: 0,
         can_update: false,
         score: 0,
         game_tools: [],
         hint_enable: false,     //是否可用红圈圈
+        storage: [],            //复活后存储最下面三行的方块
     },
     onLoad: function () {
         //start的结算跟cocos2d-x不一样？
@@ -131,6 +132,7 @@ cc.Class({
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getCollisionManager().enabled = true;
         this.gameStart();
+        this.hint.zIndex = 1;
     },
     //游戏开始
     gameStart: function() {
@@ -139,11 +141,22 @@ cc.Class({
         this.ballReady(this.balls[0]);
         this.levelUp();
         this.levelUp();
+        this.levelUp();
+        this.levelUp();
+        this.levelUp();
+        this.levelUp();
         this.hint_enable = true;
     },
     //游戏结束
     gameOver: function() {
         console.log("game over");
+        this.resurrect();
+    },
+    resurrect: function() {
+        this.levelDown();
+    },
+    toHomepage: function() {
+
     },
     //新增一个球
     addABall: function(pos_x = 0, pos_y = 1000) {
@@ -158,6 +171,7 @@ cc.Class({
         this.balls.push(ball);
         this.ball_num += 1;
         this.ball_label.string = "balls: " + this.ball_num;
+        ball.zIndex = 0.6;
         return ball;
     },
     //重新设置球球的属性
@@ -166,7 +180,6 @@ cc.Class({
             value.getComponent("ball")._active = false;
             value.getComponent("ball").collide_active = true;
             value.getComponent("ball").idole = true;
-            value.getComponent("ball").speed_can_be_fixed = true;
             // value.getComponents(cc.PhysicsCircleCollider)[0].restitution = value.getComponent("ball").thisRestitution;
             // value.getComponents(cc.PhysicsCircleCollider)[0].apply();
         });
@@ -179,7 +192,7 @@ cc.Class({
         //     cc.callFunc(function(target, data) {target.getComponent("ball")._active = true;}),
         // ]);
         // ball.runAction(sequence);
-        ball.setPosition(0, 500);
+        ball.setPosition(0, 600);
         ball.getComponent("ball")._active = true;
         
         //this.firstBall.active = false;
@@ -199,9 +212,8 @@ cc.Class({
         //console.log("length:" + this.objects.length);
         for(var i = 0; i < this.objects.length; i++)
         {
-            this.objects[i].getComponent("object").layer += 1;
             //console.log("layer:" + this.objects[i].getComponent("object").layer)
-            if (this.objects[i].getComponent("object").layer > 7)
+            if (this.objects[i].getComponent("object").layer + 1 > 7)
             {
                 this.gameOver();
                 return;
@@ -209,11 +221,15 @@ cc.Class({
         }
         for(var i = 0; i < this.objects.length; i++)
         {
-            //this.objects[i].setPosition(this.objects[i].getPosition().x, this.objects[i].getPosition().y + 120);
+            var component = this.objects[i].getComponent("object")
+            component.layer += 1;
             var sequence = [cc.callFunc(function(){;})]
-            sequence.push(cc.moveTo(0.3, this.objects[i].getPosition().x, this.objects[i].getPosition().y + 120));
+            sequence.push(cc.moveTo(0.3, this.objects[i].getPosition().x, this.objects[i].getPosition().y + 130));
             //抖动效果？？
-            // if (this.objects[i].getComponent("object").layer == 7){
+            if (component.layer == 7){
+                sequence.push(cc.callFunc(function(){component.shake();}));
+                console.log("this:" + component.num);
+            }
             //     var points = [];
             //     points.push(new cc.Vec2(this.objects[i].getPosition().x, this.objects[i].getPosition().y + 10));
             //     points.push(new cc.Vec2(this.objects[i].getPosition().x - 10, this.objects[i].getPosition().y));
@@ -226,7 +242,7 @@ cc.Class({
         }
         for(var i = 0; i < this.game_tools.length; i++)
         {
-            this.game_tools[i].runAction(cc.moveTo(0.3, this.game_tools[i].getPosition().x, this.game_tools[i].getPosition().y + 120));
+            this.game_tools[i].runAction(cc.moveTo(0.3, this.game_tools[i].getPosition().x, this.game_tools[i].getPosition().y + 130));
             this.game_tools[i].getComponent("game_tool").layer += 1;
             if (this.game_tools[i].getComponent("game_tool").layer > 7)
             {
@@ -254,13 +270,92 @@ cc.Class({
                         else rand_x = Math.floor(Math.random() * 660) - 330;
                     }
                 }
-                value.runAction(cc.moveTo(0.3, value.getPosition().x, value.y + 120));
-                //console.log("index:" + object_num + ", position.x:" + value.getPosition().x + ", position.y:" + value.getPosition().y);
+                value.runAction(cc.moveTo(0.3, value.getPosition().x, value.y + 130));
                 xs.push(rand_x);
-                value.setPosition(rand_x, -480);
+                value.setPosition(rand_x, -600);
                 });
         //},600);
         this.level += 1;
+    },
+    //复活后执行，所有方块下移三格
+    levelDown: function() {
+        //console.log("length:" + this.objects.length);
+        var layer0 = [], layer1 = [], layer2 = [];
+        var remove_indice = [];
+        var remove_indice2 = [];
+        for(var i = 0; i < this.objects.length; i++)
+        {
+            if (this.objects[i].getComponent("object").layer < 3)
+            {
+                remove_indice.push(i);
+                this.objects[i].setPosition(0, 2000);  //暂时设置到看不见的地方
+                switch(this.objects[i].getComponent("object").layer)
+                {
+                    case 0:
+                        layer0.push(this.objects[i]);
+                        break;
+                    case 1:
+                        layer1.push(this.objects[i]);
+                        break;
+                    case 2:
+                        layer2.push(this.objects[i]);
+                        break;
+                    default: 
+                        console.log("level down error!");
+                        return;
+                }
+                this.objects[i].getComponent("object").layer = 0;
+            }
+        }
+        for(var i = 0; i < this.game_tools.length; i++)
+        {
+            if (this.game_tools[i].getComponent("game_tool").layer < 3)
+            {
+                remove_indice2.push(i);
+                this.game_tools[i].setPosition(0, 2000);  //暂时设置到看不见的地方
+                switch(this.game_tools[i].getComponent("game_tool").layer)
+                {
+                    case 0:
+                        layer0.push(this.game_tools[i]);
+                        break;
+                    case 1:
+                        layer1.push(this.game_tools[i]);
+                        break;
+                    case 2:
+                        layer2.push(this.game_tools[i]);
+                        break;
+                    default: 
+                        console.log("level down error!");
+                        return;
+                }
+                this.game_tools[i].getComponent("game_tool").layer = 0;
+            }
+        }
+        //从数组中移除
+        //var moved_ob = "removed:";
+        this.storage = [layer0, layer1, layer2];
+        remove_indice.sort(function(a, b){return b - a});
+        remove_indice2.sort(function(a, b){return b - a});
+        for (var i = 0; i < remove_indice.length; i++)
+        {
+            //moved_ob += this.objects[remove_indice[i]].getComponent("object").num + ",";
+            this.objects.splice(remove_indice[i], 1);
+        }
+        //console.log(moved_ob);
+        for (var i = 0; i < remove_indice2.length; i++)
+        {
+            this.game_tools.splice(remove_indice2[i], 1);
+        }
+        for(var i = 0; i < this.objects.length; i++) {
+            this.objects[i].runAction(cc.moveTo(0.3, this.objects[i].getPosition().x, this.objects[i].getPosition().y - 390));
+            this.objects[i].getComponent("object").layer -= 3;
+            //console.log("moved object:" + this.objects[i].getComponent("object").num);
+        }
+        for(var i = 0; i < this.game_tools.length; i++)
+        {
+            this.game_tools[i].runAction(cc.moveTo(0.3, this.game_tools[i].getPosition().x, this.game_tools[i].getPosition().y - 390));
+            this.game_tools[i].getComponent("game_tool").layer -= 3;
+        }
     },
     //在最底下生成一行方块
     generateNewLevelobjects: function() {
@@ -339,6 +434,30 @@ cc.Class({
             this.game_tools.splice(i, 1);
         }
     },
+    //清除游戏数据
+    clearGameDatas: function(){
+        this.balls.forEach(function(value, index, array){
+            value.destroy();
+        });
+        this.balls = [];
+        this.objects.forEach(function(value, index, array){
+            value.destroy();
+        });
+        this.objects = [];
+        this.game_tools.forEach(function(value, index, array){
+            value.destroy();
+        });
+        this.game_tools = [];
+        this.score = 0;
+        this.ball_num = 0;
+        this.can_update = false;
+        this.hint_enable = false; 
+    },
+
+
+    /**
+     * 游戏过程检测
+     */
     //检查是否更新所有方块
     checkLevelUp: function()
     {
@@ -354,46 +473,41 @@ cc.Class({
         } 
         return result;
     },
-    //检查是否有球被卡住不动了
-    checkBallAbnormal: function() {
-        var epsilon = this.epsilon
-        this.balls.forEach(function(value, index, array) {
-            if (value.getComponent("ball").idole == false)
-            {
-                var linearVelocity = value.getComponent(cc.RigidBody).linearVelocity;
-                if (linearVelocity.x < epsilon && linearVelocity.y < epsilon)
-                {
-                    value.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(0, 300);
-                }
-            }
-        });
-    },
+    //修正速度，解决方块卡住的问题
     fixSpeed: function()
     {
         var v0 = this.v0;
+        var epsilon = this.epsilon;
         this.balls.forEach(function(value, index, array) {
             if (value.getComponent("ball").idole == false && value.getComponent("ball").speed_can_be_fixed == true)
             {
                 var linearVelocity = value.getComponent(cc.RigidBody).linearVelocity;
-                var angle = Math.atan(linearVelocity.x / linearVelocity.y) 
-                if (linearVelocity.y > 0) 
+                if (linearVelocity.x < epsilon && linearVelocity.y < epsilon)
                 {
-                    var speed_x =  v0 * Math.sin(angle);
-                    var speed_y =  v0 * Math.cos(angle);
-                    value.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(speed_x, speed_y);
+                    value.getComponent("ball").exception_time += 1;
+                    if (value.getComponent("ball").exception_time >= value.getComponent("ball").exception_time_limit)
+                    {
+                        value.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(linearVelocity.x, -200);
+                        value.getComponent("ball").exception_time = 0;
+                    }
                 }
-                else{
-                    var speed_x = - v0 * Math.sin(angle);
-                    var speed_y = - v0 * Math.cos(angle);
-                    value.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(speed_x, speed_y);
+                else 
+                {
+                    value.getComponent("ball").exception_time = 0;
                 }
+
+                // var inc_x = 0, inc_y = 0;
+                // var linearVelocity = value.getComponent(cc.RigidBody).linearVelocity;
+                // if (linearVelocity.x < epsilon) inc_x = Math.random() < 0.5 ? 10: -10;
+                // if (linearVelocity.y < epsilon) inc_y = Math.random() < 0.5 ? 10: -10;
+                // value.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(linearVelocity.x + inc_x, linearVelocity.y + inc_y);
             }
         });
     },
     update: function(dt)
     {
-        //this.checkBallAbnormal();
         this.fixSpeed();
+        cc.director.getPhysicsManager().update(10.0*dt);
         if (this.can_update)
         {
             this.can_update = false;

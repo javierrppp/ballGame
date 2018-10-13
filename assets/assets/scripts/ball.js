@@ -10,6 +10,8 @@ cc.Class({
             type: cc.number,
         },
         idole: true,
+        exception_time: 0,             //异常次数，如果x方向和y方向都为0则记一次
+        exception_time_limit: 50,    //上限，如果x方向和y方向连续exception_time_limit次为0则判定为异常
         game: {
             default: null,
             type: cc.Node,
@@ -17,7 +19,6 @@ cc.Class({
     },
     onLoad: function () {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);  
     },
     // LIFE-CYCLE CALLBACKS:
     onKeyDown (event) {
@@ -25,28 +26,13 @@ cc.Class({
         switch(event.keyCode) {
             case cc.macro.KEY.a:
                 this.node.getComponent(cc.RigidBody).active = false;
-                this.node.setPosition(this.node.getPosition().x, this.node.getPosition().y + 20);
                 break;
             case cc.macro.KEY.d:
                 this.node.getComponent(cc.RigidBody).active = true;
         }
     },
-    onKeyUp (event) {
-        // unset a flag when key released
-        switch(event.keyCode) {
-            case cc.macro.KEY.a:
-                this.accLeft = false;
-                break;
-            case cc.macro.KEY.d:
-                this.accRight = false;
-                break;
-        }
-    },
-    // onLoad () {},
-    update: function (dt) {
-        
-    },
     onBeginContact(contact, self, other) {
+        var height = 1135;
         //如果撞的是地面
         //tag:1为左地面，2为右地面，3为外侧墙壁，4为最底面，5为最顶面
         if (other.tag == 1 || other.tag == 2 || other.tag == 4)
@@ -68,8 +54,8 @@ cc.Class({
         {
             //this.idole = true;
             this.node.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(0, 0);
-            var move1 = cc.moveTo(0.6, this.node.getPosition().x, 760);
-            var move2 = cc.moveTo(0.3, 0, 760);
+            var move1 = cc.moveTo(0.6, this.node.getPosition().x, height);
+            var move2 = cc.moveTo(0.3, 0, height);
             var sequence = cc.sequence([move1, move2]);
             this.node.runAction(sequence);
         }
@@ -80,8 +66,8 @@ cc.Class({
                 this.collide_active = false;
                 this.node.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(0, 0);
                 var move1 = cc.moveTo(0.4, 700, this.node.getPosition().y);
-                var move2 = cc.moveTo(0.4, 700, 760);
-                var move3 = cc.moveTo(0.2, 0, 760);
+                var move2 = cc.moveTo(0.4, 700, height);
+                var move3 = cc.moveTo(0.2, 0, height);
                 var sequence = cc.sequence([move1, move2, move3]);
                 this.node.runAction(sequence);
             }
@@ -92,6 +78,4 @@ cc.Class({
             this.game.getComponent("Game").can_update = true;
         }
     },
-
-    // update (dt) {},
 });

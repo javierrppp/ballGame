@@ -22,7 +22,7 @@ cc.Class({
         // })]);
         ball.getComponent(cc.RigidBody).active = true;
         var rand_x = Math.ceil(Math.random() * 500 - 250);  //-250, 250
-        ball.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(rand_x, 1000); 
+        ball.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(rand_x, this.game.getComponent("Game").v0); 
         ball.getComponent("ball")._active = false;
         ball.getComponent("ball").idole = false;
         ball.getComponent("ball").speed_can_be_fixed = true;
