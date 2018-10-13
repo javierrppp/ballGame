@@ -29,12 +29,17 @@ cc.Class({
         this.num -= 1;
         if (this.num == 0)
         {
-            console.log(this.game);
             this.game.getComponent("Game").destroyObject(1, this.node);
         }
         this.game.getComponent("Game").score += 1;
         this.game.getComponent("Game").score_label.string = "score: " + this.game.getComponent("Game").score;
         this.text.string = this.num;
+    },
+    onCollisionEnter: function (other, self) {
+        console.log('on collision enter');
+    },
+    onCollisionStay: function (other, self) {
+        console.log('on collision stay');
     },
     start () {
 

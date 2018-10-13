@@ -170,7 +170,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_id": "261qQaQw5C+KRU4cB1DV5H"
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -209,7 +209,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_id": "6cW/P5lcdCuaKY51fZ8qxY"
+    "_id": ""
   },
   {
     "__type__": "cc.RigidBody",
@@ -233,7 +233,7 @@
     "_fixedRotation": false,
     "enabledContactListener": true,
     "bullet": false,
-    "_id": "de9YHscgBAT7D5fsmZlaKZ"
+    "_id": ""
   },
   {
     "__type__": "cc.PhysicsPolygonCollider",
@@ -246,7 +246,7 @@
     "tag": 0,
     "_density": 1,
     "_sensor": false,
-    "_friction": 0.2,
+    "_friction": 0,
     "_restitution": 0.8,
     "body": null,
     "_offset": {
@@ -276,7 +276,7 @@
         "y": 46.9
       }
     ],
-    "_id": "22b6zidfdH6ajLoCl/M1gg"
+    "_id": ""
   },
   {
     "__type__": "7cbb5YfnLlET4CGQrJBWVz4",
@@ -288,11 +288,12 @@
     "_enabled": true,
     "num": 0,
     "layer": 0,
+    "type": 0,
     "text": {
       "__id__": 3
     },
     "game": null,
-    "_id": "bdVxXCnVRNl78xnBlFJ9LF"
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

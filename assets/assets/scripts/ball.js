@@ -4,6 +4,7 @@ cc.Class({
     properties: {
         _active_: false,        //是否可以发射
         collide_active: true,  //防止重复调用碰撞检测函数
+        speed_can_be_fixed: false,  //是否需要修正速度（碰到地面则更改为否）
         thisRestitution: {
             default: 0.5,
             type: cc.number,
@@ -53,20 +54,22 @@ cc.Class({
             //让节点失去弹力
             var speed_x = other.tag == 1 ? -400 : 400;
             if (other.tag == 4) speed_x = 0;
+            this.speed_can_be_fixed = false;
             if (this.node.getComponent(cc.RigidBody).linearVelocity.x !== speed_x)
             {
+                contact.setRestitution(0);
                 this.node.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(speed_x, 0);
-                var c = this.node.getComponents(cc.PhysicsCircleCollider)[0];
-                c.restitution = 0;
-                c.apply();
+                // var c = this.node.getComponents(cc.PhysicsCircleCollider)[0];
+                // c.restitution = 0;
+                // c.apply();
             }
         }
         if (other.tag == 3)
         {
             //this.idole = true;
             this.node.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(0, 0);
-            var move1 = cc.moveTo(0.6, this.node.getPosition().x, 1200);
-            var move2 = cc.moveTo(0.3, 0, 1200);
+            var move1 = cc.moveTo(0.6, this.node.getPosition().x, 760);
+            var move2 = cc.moveTo(0.3, 0, 760);
             var sequence = cc.sequence([move1, move2]);
             this.node.runAction(sequence);
         }
@@ -76,9 +79,9 @@ cc.Class({
             {
                 this.collide_active = false;
                 this.node.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(0, 0);
-                var move1 = cc.moveTo(0.7, 700, this.node.getPosition().y);
-                var move2 = cc.moveTo(0.7, 700, 1200);
-                var move3 = cc.moveTo(0.5, 0, 1200);
+                var move1 = cc.moveTo(0.4, 700, this.node.getPosition().y);
+                var move2 = cc.moveTo(0.4, 700, 760);
+                var move3 = cc.moveTo(0.2, 0, 760);
                 var sequence = cc.sequence([move1, move2, move3]);
                 this.node.runAction(sequence);
             }
