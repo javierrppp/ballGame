@@ -106,7 +106,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_id": "95dW72w2JMkrLuzk1cFhrC"
+    "_id": ""
   },
   {
     "__type__": "c026bYETD1LFaCdU00b3d9C",
@@ -117,10 +117,12 @@
     },
     "_enabled": true,
     "_active_": false,
-    "thisRestitution": 0.1,
+    "collide_active": true,
+    "speed_can_be_fixed": false,
+    "thisRestitution": 0.025,
     "idole": true,
     "game": null,
-    "_id": "e0YKhCgMJKBI+MNX8m1rn4"
+    "_id": ""
   },
   {
     "__type__": "cc.RigidBody",
@@ -132,7 +134,7 @@
     "_enabled": true,
     "_type": 2,
     "_allowSleep": true,
-    "_gravityScale": 1,
+    "_gravityScale": 1.2,
     "_linearDamping": 0,
     "_angularDamping": 0,
     "_linearVelocity": {
@@ -144,7 +146,7 @@
     "_fixedRotation": false,
     "enabledContactListener": true,
     "bullet": true,
-    "_id": "155+Dy8f9OeZPLuJwXdqyM"
+    "_id": ""
   },
   {
     "__type__": "cc.PhysicsCircleCollider",
@@ -166,7 +168,7 @@
       "y": 0
     },
     "_radius": 84,
-    "_id": "980G43gy5DCYbGocv0uWug"
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
