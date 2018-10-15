@@ -42,8 +42,10 @@ cc.Class({
         this.game.getComponent("Game").score_label.string = "score: " + this.game.getComponent("Game").score;
         this.text.string = this.num;
     },
+    //一个bug： 为何在Game.js里面调用该函数的时候，并不一定会指向该点？
     shake: function() {
         // set a flag when key pressed
+            console.log("shake node:" + this.num);
         if (this.shaking == false)
         {
             this.shaking = true;
@@ -60,7 +62,6 @@ cc.Class({
             var _this = this;
             sequence.push(cc.callFunc(function(){_this.shaking = false;}));
             this.node.runAction(cc.sequence(sequence));
-            console.log("shake node:" + this.num);
             //this.node.runAction(cc.sequence([cc.shake(0.2, 300, 300), cc.callFunc(function(){_this.shaking = false;})]));
         }
     },

@@ -46,7 +46,7 @@ cc.Class({
         },
         //检测卡住的临界系数
         epsilon: {
-            default: 0.01,
+            default: 50,
             type: cc.Float,
         },
         //求求初始速度（或修正速度）
@@ -154,6 +154,7 @@ cc.Class({
         this.levelUp();
         this.levelUp();
         this.levelUp();
+        this.levelUp();
         this.hint_enable = true;
     },
     //游戏结束
@@ -230,23 +231,25 @@ cc.Class({
         }
         for(var i = 0; i < this.objects.length; i++)
         {
-            var component = this.objects[i].getComponent("object")
-            component.layer += 1;
+            var _this = this;
+            this.objects[i].getComponent("object").layer += 1
             var sequence = [cc.callFunc(function(){;})]
             sequence.push(cc.moveTo(0.3, this.objects[i].getPosition().x, this.objects[i].getPosition().y + 130));
             //抖动效果？？
-            if (component.layer == 7){
-                sequence.push(cc.callFunc(function(){component.shake()}));
-                console.log("this:" + component.num);
+            if (this.objects[i].getComponent("object").layer == 7){
+                // sequence.push(cc.callFunc(function(){_this.objects[i].getComponent("object").shake();}, this));
+                var shake_num = 20;
+                var strength = 20;
+                var initial_x = this.objects[i].getPosition().x;
+                var initial_y = this.objects[i].getPosition().y + 130;
+                for (var j = 0; j < shake_num; j++)
+                {
+                    var randx = Math.ceil(Math.random() * 2 * strength - strength);
+                    var randy = Math.ceil(Math.random() * 2 * strength - strength);
+                    sequence.push(cc.moveTo(0.02, initial_x + randx, initial_y + randy));
+                }
+                sequence.push(cc.moveTo(0.02, initial_x, initial_y));
             }
-            //     var points = [];
-            //     points.push(new cc.Vec2(this.objects[i].getPosition().x, this.objects[i].getPosition().y + 10));
-            //     points.push(new cc.Vec2(this.objects[i].getPosition().x - 10, this.objects[i].getPosition().y));
-            //     points.push(new cc.Vec2(this.objects[i].getPosition().x, this.objects[i].getPosition().y - 10));
-            //     points.push(new cc.Vec2(this.objects[i].getPosition().x + 10, this.objects[i].getPosition().y));
-            //     points.push(new cc.Vec2(this.objects[i].getPosition().x, this.objects[i].getPosition().y));
-            //     sequence.push(cc.cardinalSplineTo(0.5, points, 0));
-            // }
             this.objects[i].runAction(cc.sequence(sequence));
         }
         for(var i = 0; i < this.game_tools.length; i++)
@@ -403,7 +406,7 @@ cc.Class({
             new_object.getComponent("object").layer = 0;
             new_object.getComponent("object").game = this;
             var rand_rotation = Math.floor(Math.random() * 360) - 180   //-180~180
-            var object_num = Math.floor(Math.random() * this.level * 5) + this.level * 5;
+            var object_num = Math.floor(Math.random() * this.level * 50) + this.level * 5;
             new_object.getComponent("object").num = object_num;
             new_object.getComponent("object").text.string = object_num;
             new_object.getComponent("object").text.node.setRotation(-rand_rotation);
@@ -496,7 +499,7 @@ cc.Class({
                     value.getComponent("ball").exception_time += 1;
                     if (value.getComponent("ball").exception_time >= value.getComponent("ball").exception_time_limit)
                     {
-                        value.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(linearVelocity.x, -200);
+                        value.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(linearVelocity.x, -500);
                         value.getComponent("ball").exception_time = 0;
                     }
                 }
