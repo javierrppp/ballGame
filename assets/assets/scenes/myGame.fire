@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.22973967099940615,
-      "y": 0.22973967099940615,
+      "x": 0.19133370849746764,
+      "y": 0.19133370849746764,
       "z": 1
     },
     "_quat": {
@@ -312,9 +312,7 @@
     "_enabled": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "d86c1a87-fb5c-4e81-a928-244f364d7267"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -520,7 +518,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -18,
+      "x": 0,
       "y": -47,
       "z": 0
     },
@@ -1468,6 +1466,12 @@
     "toolProb": 0.7,
     "epsilon": 0.01,
     "v0": 700,
+    "ball_hit": {
+      "__uuid__": "a2e1ff43-f82f-458e-b77c-d5de02ff07ba"
+    },
+    "get_item": {
+      "__uuid__": "401b4915-2373-4c67-96bb-2c7d68fa5963"
+    },
     "level": 1,
     "balls": [],
     "ball_num": 0,

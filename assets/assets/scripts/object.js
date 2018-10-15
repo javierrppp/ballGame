@@ -9,12 +9,12 @@ cc.Class({
         //抖动强度
         strength: {
             default: 7,
-            type: cc.number,
+            type: cc.Integer,
         },
         //抖动次数
         shake_num: {
             default: 15,
-            type: cc.number,
+            type: cc.Integer,
         },
         text: {
             default: null,
@@ -31,10 +31,12 @@ cc.Class({
         if (this.num == 0)
         {
             this.game.getComponent("Game").destroyObject(1, this.node);
+            cc.audioEngine.playEffect(this.game.getComponent("Game").get_item, false);
         }
         else
         {
             this.shake();
+            cc.audioEngine.playEffect(this.game.getComponent("Game").ball_hit, false);
         }
         this.game.getComponent("Game").score += 1;
         this.game.getComponent("Game").score_label.string = "score: " + this.game.getComponent("Game").score;

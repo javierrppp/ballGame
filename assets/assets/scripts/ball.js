@@ -7,7 +7,7 @@ cc.Class({
         speed_can_be_fixed: false,  //是否需要修正速度（碰到地面则更改为否）
         thisRestitution: {
             default: 0.5,
-            type: cc.number,
+            type: cc.Integer,
         },
         idole: true,
         exception_time: 0,             //异常次数，如果x方向和y方向都为0则记一次

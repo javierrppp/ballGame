@@ -52,7 +52,17 @@ cc.Class({
         //求求初始速度（或修正速度）
         v0: {
             default: 1000,
-            type: cc.number,
+            type: cc.Integer,
+        },
+        //撞击声
+        ball_hit: {
+            type: cc.AudioClip,
+            default: null
+        },
+        //暂时定义为击碎球的声音？
+        get_item: {
+            type: cc.AudioClip,
+            default: null
         },
         level: 1,
         balls: [],
